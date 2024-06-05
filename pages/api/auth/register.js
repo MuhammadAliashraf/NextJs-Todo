@@ -24,9 +24,9 @@ const handler = asyncWrapper(async (req, res) => {
 
   await ConnectDB();
   let user = await User.findOne({ email });
-  if (user) {
+  if (!user) {
     return errorHandler(
-      res,
+      res,    
       StatusCodes.CONFLICT,
       'User is already register with the given email'
     );
