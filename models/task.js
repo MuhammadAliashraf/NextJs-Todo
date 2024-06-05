@@ -11,6 +11,7 @@ const schema = new mongoose.Schema({
   isCompleted: {
     type: Boolean,
     required: true,
+    default: false,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
