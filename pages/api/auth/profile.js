@@ -1,7 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
-import { asyncWrapper, checkAuth, errorHandler } from '../../middlewares/error';
-import { ConnectDB } from '../../utils/connectDb';
-import { Task } from '../../models/task';
+import {
+  asyncWrapper,
+  checkAuth,
+  errorHandler,
+} from '../../../middlewares/error';
+import { ConnectDB } from '../../../utils/connectDb';
 
 const handler = asyncWrapper(async (req, res) => {
   if (req.method !== 'GET') {
@@ -13,13 +16,13 @@ const handler = asyncWrapper(async (req, res) => {
   }
   await ConnectDB();
   const auth = await checkAuth(req);
+  const { password, ...withOutPassword } = auth._doc || auth;
+
   if (!auth) {
     return errorHandler(res, StatusCodes.UNAUTHORIZED, 'Login First');
   }
-  // return console.log('I Got Hit', auth._id);
-  const alltask = await Task.find({ user: auth._id }).sort({ createdAt: -1 });
   res.status(StatusCodes.OK).json({
-    data: alltask,
+    data: withOutPassword,
   });
 });
 

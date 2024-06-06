@@ -12,6 +12,13 @@ const handler = asyncWrapper(async (req, res) => {
     );
   }
   const { title, description } = req.body;
+  if (!title || !description) {
+    return errorHandler(
+      res,
+      StatusCodes.BAD_REQUEST,
+      'All feilds are required!'
+    );
+  }
   await ConnectDB();
   const auth = await checkAuth(req);
   const task = {

@@ -16,6 +16,9 @@ export const asyncWrapper = (passFunc) => (req, res) => {
 };
 
 export const checkAuth = async (req) => {
+  if (!req.headers.cookie) {
+    return null;
+  }
   const token = req.headers.cookie.split('=')[1];
   const decodeData = jwt.verify(token, process.env.JWT_SCERET);
   return await User.findById(decodeData._id);
