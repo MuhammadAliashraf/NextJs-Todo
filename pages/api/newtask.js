@@ -1,7 +1,7 @@
 import { ConnectDB } from '../../utils/connectDb';
 import { Task } from '../../models/task';
 import { StatusCodes } from 'http-status-codes';
-import { asyncWrapper, errorHandler } from '../../middlewares/error';
+import { asyncWrapper, checkAuth, errorHandler } from '../../middlewares/error';
 
 const handler = asyncWrapper(async (req, res) => {
   if (req.method !== 'POST') {
@@ -13,10 +13,11 @@ const handler = asyncWrapper(async (req, res) => {
   }
   const { title, description } = req.body;
   await ConnectDB();
+  const auth = await checkAuth(req);
   const task = {
     title,
     description,
-    user: '662411dbb0adc62be77c3b4a',
+    user: auth._id,
   };
   await Task.create(task);
   res.status(StatusCodes.CREATED).json({
