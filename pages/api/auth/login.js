@@ -44,7 +44,7 @@ const handler = asyncWrapper(async (req, res) => {
   cookieSetter(res, token, true);
   res.status(StatusCodes.OK).json({
     message: `Welcome back ${user?.name}`,
-    // data: user,
+    data: user,
     token,
   });
 });

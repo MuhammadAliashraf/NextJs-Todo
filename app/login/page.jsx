@@ -1,15 +1,54 @@
 'use client';
 
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Login = () => {
+  const [data, setdata] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setdata({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/auth/login', data);
+      console.log(response);
+      toast.success(response.data.message);
+      toast;
+    } catch (error) {
+      console.error('error in login', error);
+    }
+  };
+
   return (
     <div className="login">
       <section>
-        <form action="">
-          <input placeholder="Enter Email" type="email" />
-          <input placeholder="Enter Password" type="password" />
+        <form onSubmit={handleSubmitLogin}>
+          <input
+            onChange={handleChange}
+            name="email"
+            value={data.email}
+            placeholder="Enter Email"
+            type="email"
+          />
+          <input
+            onChange={handleChange}
+            name="password"
+            value={data.password}
+            placeholder="Enter Password"
+            type="password"
+          />
           <button type="submit">Login</button>
           <p>OR</p>
           <Link href={'/register'}>New User</Link>
