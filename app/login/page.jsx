@@ -2,14 +2,18 @@
 
 import axios from 'axios';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Context } from '../../components/Clients';
+import { redirect } from 'next/navigation';
 
 const Login = () => {
   const [data, setdata] = useState({
-    email: '',
-    password: '',
+    email: 'muhammadali@gmail.com',
+    password: '123456789',
   });
+
+  const { user, setuser } = useContext(Context);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,13 +27,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/auth/login', data);
-      console.log(response);
       toast.success(response.data.message);
-      toast;
+      setuser(response.data.data);
     } catch (error) {
-      console.error('error in login', error);
+      toast.error(error?.response?.data?.message);
     }
   };
+  if (user?._id) return redirect('/');
 
   return (
     <div className="login">

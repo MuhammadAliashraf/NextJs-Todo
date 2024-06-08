@@ -1,12 +1,22 @@
 'use client';
 
+import axios from 'axios';
 import Link from 'next/link';
-import { useState, createContext, useContext } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { redirect } from 'next/navigation';
+import { useState, createContext, useContext, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const Context = createContext({ user: {} });
 export const ContextProvider = ({ children }) => {
   const [user, setuser] = useState({});
+
+  useEffect(() => {
+    axios
+      .get('/api/auth/profile')
+      .then((res) => setuser(res.data.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <Context.Provider value={{ user, setuser }}>
       {children} <Toaster />{' '}
@@ -15,11 +25,23 @@ export const ContextProvider = ({ children }) => {
 };
 
 export const LogoutButton = () => {
-  const { user } = useContext(Context);
+  const { user, setuser } = useContext(Context);
+  const handleLogout = async () => {
+    try {
+      await axios.get('/api/auth/logout');
+      toast.success('Logout');
+      setuser({});
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
   return (
     <>
-      {user?.id ? (
-        <button className="btn">Logout</button>
+      {user?._id ? (
+        <button onClick={handleLogout} className="btn">
+          Logout
+        </button>
       ) : (
         <Link href={'/login'}>Login</Link>
       )}
