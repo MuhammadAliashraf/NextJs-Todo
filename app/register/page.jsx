@@ -15,7 +15,7 @@ const Register = () => {
   });
 
   const { user, setuser } = useContext(Context);
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setdata({
@@ -23,7 +23,7 @@ const Register = () => {
       [name]: value,
     });
   };
-
+ 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     try {

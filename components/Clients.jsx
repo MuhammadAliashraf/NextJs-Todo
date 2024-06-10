@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -48,14 +49,31 @@ export const LogoutButton = () => {
   );
 };
 
-export const TodoButton = ({id, completed} ) => {
-  const handleDelete = (id) => {
-    alert('This is id:', id);
+export const TodoButton = ({ id, completed }) => {
+  const router = useRouter();
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/task/${id}`);
+      toast.success('Task Deleted!');
+      router.refresh();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleUpdateTask = async (id) => {
+    try {
+      await axios.put(`/api/task/${id}`);
+      toast.success('Task Updated!');
+      router.refresh();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <>
-      <input type="checkbox" checked={completed} />
+      <input type="checkbox" onChange={()=>handleUpdateTask(id)} checked={completed} />
       <button className="btn" onClick={() => handleDelete(id)}>
         Delete
       </button>
