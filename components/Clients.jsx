@@ -2,8 +2,7 @@
 
 import axios from 'axios';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { useState, createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export const Context = createContext({ user: {} });
@@ -49,10 +48,11 @@ export const LogoutButton = () => {
   );
 };
 
-export const TodoButton = ({ id, completed }) => {
+export const TodoButton = ({id, completed} ) => {
   const handleDelete = (id) => {
     alert('This is id:', id);
   };
+
   return (
     <>
       <input type="checkbox" checked={completed} />

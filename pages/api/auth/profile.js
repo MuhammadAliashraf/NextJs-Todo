@@ -17,7 +17,6 @@ const handler = asyncWrapper(async (req, res) => {
   await ConnectDB();
   const auth = await checkAuth(req);
   const { password, ...withOutPassword } = auth._doc || auth;
-
   if (!auth) {
     return errorHandler(res, StatusCodes.UNAUTHORIZED, 'Login First');
   }

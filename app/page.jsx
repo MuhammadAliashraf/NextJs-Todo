@@ -1,14 +1,14 @@
-import Image from 'next/image';
+import { Suspense } from 'react';
 import ToDoForm from './ToDoForm';
-import { TOdoItems } from '../components/Server.jsx';
-export default function Home() {
+import TaskRender from './taskRender';
+export default async function Home() {
   return (
     <>
       <div className="container">
         <ToDoForm />
-        <section className="todosContainer">
-          <TOdoItems id={2} completed={true} title="This is new item" detail="This is task For PandaPlacement To Complete The Card " />
-        </section>
+        <Suspense fallback={<div>Loading....</div>}>
+          <TaskRender />
+        </Suspense>
       </div>
     </>
   );
