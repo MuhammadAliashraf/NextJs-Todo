@@ -24,6 +24,7 @@ const TaskRender = async () => {
     <section className="todosContainer">
       {myTasks?.map((value, index) => (
         <TOdoItems
+          key={value?._id}
           id={value?._id}
           completed={value?.isCompleted}
           title={value?.title}
