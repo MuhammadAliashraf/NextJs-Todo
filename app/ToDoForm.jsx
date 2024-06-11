@@ -1,28 +1,28 @@
 'use client';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { redirect, useRouter } from 'next/navigation';
 import { Context } from '@/components/Clients';
 const ToDoForm = () => {
-  const { user, task1 } = useContext(Context);
+  const { user, task } = useContext(Context);
   const router = useRouter();
-  const [task, setTask] = useState({
+  const [taskData, settaskData] = useState({
     title: '',
     description: '',
   });
 
   const handleChange = (e) => {
-    setTask({ ...task, [e.target.name]: e.target.value });
+    settaskData({ ...taskData, [e.target.name]: e.target.value });
   };
 
-  const handleTaskAdd = async (e) => {
+  const handletaskDataAdd = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/newtask', task);
+      const response = await axios.post('/api/newtask', taskData);
       toast.success(response.data.message);
       router.refresh();
-      setTask({
+      settaskData({
         title: '',
         description: '',
       });
@@ -32,27 +32,54 @@ const ToDoForm = () => {
     }
   };
 
+  const handleUpdateTask = async (e) => {
+    e.preventDefault();
+    return console.log(taskData, e);
+    try {
+      const response = await axios.put(`/api/task/${task?._id}`, taskData);
+      toast.success(response.data.message);
+      router.refresh();
+      settaskData({
+        title: '',
+        description: '',
+      });
+    } catch (error) {
+      console.error('Error', error);
+      toast.error(error?.response?.data?.message);
+    }
+  };
   if (!user?._id) return redirect('/login');
+
+  useEffect(() => {
+    settaskData({
+      title: task?.title,
+      description: task?.description,
+    });
+  }, [task]);
 
   return (
     <div className="login">
       <section>
-        <form onSubmit={handleTaskAdd}>
+        <form
+          onSubmit={task && task?._id ? handleUpdateTask : handletaskDataAdd}
+        >
           <input
             name="title"
-            value={task?.title}
+            value={taskData?.title}
             onChange={handleChange}
-            placeholder="Enter Task"
+            placeholder="Enter taskData"
             type="text"
           />
           <input
             name="description"
-            value={task?.description}
+            value={taskData?.description}
             onChange={handleChange}
-            placeholder="Enter Task Details"
+            placeholder="Enter taskData Details"
             type="text"
           />
-          <button type="submit">Add</button>
+          <button type="submit">
+            {task && task?._id ? 'Update Task' : 'Add'}
+          </button>
         </form>
       </section>
     </div>

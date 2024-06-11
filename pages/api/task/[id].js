@@ -31,6 +31,7 @@ const handler = asyncWrapper(async (req, res) => {
     res.status(StatusCodes.OK).json({
       message: 'Task Updated!',
     });
+    
   } else if (req.method === 'DELETE') {
     if (!id) {
       return errorHandler(
