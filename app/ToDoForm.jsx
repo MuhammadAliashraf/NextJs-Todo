@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { redirect, useRouter } from 'next/navigation';
 import { Context } from '@/components/Clients';
 const ToDoForm = () => {
-  const { user } = useContext(Context);
+  const { user, task1 } = useContext(Context);
   const router = useRouter();
   const [task, setTask] = useState({
     title: '',

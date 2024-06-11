@@ -9,8 +9,8 @@ import { redirect } from 'next/navigation';
 
 const Login = () => {
   const [data, setdata] = useState({
-    email: 'muhammadali@gmail.com',
-    password: '123456789',
+    email: '',
+    password: '',
   });
 
   const { user, setuser } = useContext(Context);
