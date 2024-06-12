@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Certainly! Below is a template for your `README.md` file that explains how to set up a MERN stack Todo application with authentication using cookies in Next.js.
+
+---
+
+# MERN Stack Todo Application with Authentication (Cookie-based) using Next.js
+
+This repository contains a Todo application built with the MERN (MongoDB, Express.js, React.js, Node.js) stack and uses Next.js for server-side rendering and routing. Authentication is implemented using cookies.
+
+## Features
+
+- **Authentication**: User registration and login using cookies for session management.
+- **Todo CRUD Operations**: Create, Read, Update, and Delete Todos.
+- **Server-side Rendering (SSR)**: Enhanced performance and SEO benefits with Next.js.
+- **API Routes**: Backend APIs using Express.js for handling Todo operations and authentication.
+
+## Prerequisites
+
+- Node.js and npm installed on your machine.
+- MongoDB instance (local or cloud-based) for database storage.
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   git clone https://github.com/MuhammadAliashraf/NextJs-Todo.git
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. **Set up environment variables**:
 
-## Learn More
+   Create a `.env` file in the root directory and configure the following variables:
 
-To learn more about Next.js, take a look at the following resources:
+   ```plaintext
+   MONGODB_URI = your_mongodb_connection_string
+   JWT_SECRET = your_jwt_secret_key
+   URL= API URL
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Start the development server**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+   This will start the Next.js development server and the Express server concurrently.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **Access the application**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   Open your browser and go to `http://localhost:3000` to view the Todo application.
+
+## Folder Structure
+
+- **`/pages`**: Next.js pages for routing and SSR.
+- **`/components`**: React components for UI elements.
+- **`/api`**: Backend API routes using Express.js.
+- **`/models`**: MongoDB models for Todo and User schemas.
+- **`/utils`**: Utility functions such as authentication middleware and error handlers.
+
+## API Routes
+
+- `/api/auth/register`: Register a new user.
+- `/api/auth/login`: Login and create a session using cookies.
+- `/api/auth/logout`: Logout and destroy the session.
+- `/api/todos`: CRUD operations for Todos (requires authentication).
+
+## Technologies Used
+
+- **Next.js**: React framework for SSR and client-side rendering.
+- **React.js**: Frontend library for building user interfaces.
+- **Express.js**: Backend framework for handling API requests.
+- **MongoDB**: NoSQL database for storing Todos and User data.
+- **JWT**: JSON Web Tokens for authentication and session management.
+
+
+## Author
+
+- Muhammad Ali
+- 030-62767-542
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+Feel free to customize the sections as per your project's specific details and add more detailed explanations or usage instructions where necessary. This template should give you a good starting point for documenting your MERN stack Todo application with authentication using cookies in Next.js.
