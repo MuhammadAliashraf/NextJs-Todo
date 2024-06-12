@@ -1,6 +1,4 @@
-Certainly! Below is a template for your `README.md` file that explains how to set up a MERN stack Todo application with authentication using cookies in Next.js.
 
----
 
 # MERN Stack Todo Application with Authentication (Cookie-based) using Next.js
 
