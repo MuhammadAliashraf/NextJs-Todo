@@ -11,6 +11,14 @@ const ToDoForm = () => {
     title: '',
     description: '',
   });
+  useEffect(() => {
+    if (task) {
+      setTaskData({
+        title: task.title,
+        description: task.description,
+      });
+    }
+  }, [task]);
 
   const handleChange = (e) => {
     settaskData({ ...taskData, [e.target.name]: e.target.value });
@@ -48,16 +56,10 @@ const ToDoForm = () => {
       toast.error(error?.response?.data?.message);
     }
   };
+
   if (!user?._id) return redirect('/login');
 
-  useEffect(() => {
-    if (task) {
-      settaskData({
-        title: task?.title,
-        description: task?.description,
-      });
-    }
-  }, []);
+
 
   return (
     <div className="login">
