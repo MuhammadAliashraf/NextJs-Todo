@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { redirect, useRouter } from 'next/navigation';
 import { Context } from '@/components/Clients';
 const ToDoForm = () => {
-  const { user, task } = useContext(Context);
+  const { user, task, settask } = useContext(Context);
   const router = useRouter();
   const [taskData, settaskData] = useState({
     title: '',
@@ -34,15 +34,15 @@ const ToDoForm = () => {
 
   const handleUpdateTask = async (e) => {
     e.preventDefault();
-    return console.log(taskData, e);
     try {
-      const response = await axios.put(`/api/task/${task?._id}`, taskData);
+      const response = await axios.put(`/api/task/edit/${task?._id}`, taskData);
       toast.success(response.data.message);
       router.refresh();
       settaskData({
         title: '',
         description: '',
       });
+      settask({});
     } catch (error) {
       console.error('Error', error);
       toast.error(error?.response?.data?.message);
