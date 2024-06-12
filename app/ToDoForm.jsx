@@ -13,9 +13,9 @@ const ToDoForm = () => {
   });
   useEffect(() => {
     if (task) {
-      setTaskData({
-        title: task.title,
-        description: task.description,
+      settaskData({
+        title: task.title || '',
+        description: task.description || '',
       });
     }
   }, [task]);
