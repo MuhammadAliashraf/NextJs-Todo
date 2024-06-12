@@ -51,11 +51,13 @@ const ToDoForm = () => {
   if (!user?._id) return redirect('/login');
 
   useEffect(() => {
-    settaskData({
-      title: task?.title,
-      description: task?.description,
-    });
-  }, [task]);
+    if (task) {
+      settaskData({
+        title: task?.title,
+        description: task?.description,
+      });
+    }
+  }, []);
 
   return (
     <div className="login">
