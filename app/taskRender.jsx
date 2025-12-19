@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
-import { TOdoItems } from '../components/Server.jsx';
+import TaskList from '@/components/TaskList';
 
 const fetchTask = async (token) => {
   try {
@@ -13,25 +13,20 @@ const fetchTask = async (token) => {
     if (!response.data.data) return [];
     return response.data.data;
   } catch (error) {
-    console.error('Error', error);
+    console.error('Error fetching tasks:', error);
+    return [];
   }
 };
 
 const TaskRender = async () => {
   const token = cookies().get('token')?.value;
-  const myTasks = await fetchTask(token);
+  // If no token, we might return empty array (handled by fetchTask returning [])
+  const myTasks = token ? await fetchTask(token) : [];
+  
   return (
-    <section className="todosContainer">
-      {myTasks?.map((value, index) => (
-        <TOdoItems
-          item={value}
-          key={value?._id}
-          id={value?._id}
-          completed={value?.isCompleted}
-          title={value?.title}
-          detail={value?.description}
-        />
-      ))}
+    <section className="mt-8">
+      <h2 className="text-2xl font-bold mb-6 tracking-tight">Your Tasks</h2>
+      <TaskList tasks={myTasks} />
     </section>
   );
 };

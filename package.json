@@ -9,17 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "cookie": "^0.6.0",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.562.0",
     "mongoose": "^8.4.0",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
-    "sass": "^1.77.2"
+    "sass": "^1.77.2",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
